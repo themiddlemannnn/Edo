@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Osazuwa | Edo Renaissance</title>
+    <style>
+        :root {
+            --primary: #9E2A2B;
+            --secondary: #540B0E;
+            --accent: #E09F3E;
+            --light: #FFF3B0;
+            --dark: #1A1A1D;
+            --text: #333;
+            --bg: #f9f5e8;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--accent);
+            margin-left: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Story Section */
+        .story-section {
+            background-color: var(--secondary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518709766631-a6a7f45921c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .story-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+        
+        .story-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .story-title h2 {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+        
+        .story-title p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 1rem auto 0;
+        }
+        
+        .chapter-container {
+            background-color: rgba(26, 26, 29, 0.9);
+            border-radius: 10px;
+            padding: 3rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .chapter-header h3 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .chapter-header p {
+            color: rgba(255,255,255,0.7);
+            font-style: italic;
+        }
+        
+        .chapter-content {
+            column-count: 1;
+            column-gap: 3rem;
+        }
+        
+        .chapter-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+        
+        .chapter-content p:first-child::first-letter {
+            font-size: 3rem;
+            float: left;
+            line-height: 1;
+            margin-right: 10px;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        /* Vision Section */
+        .vision-section {
+            background-color: var(--bg);
+        }
+        
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .vision-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        
+        .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .vision-card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .vision-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .vision-card:hover .vision-card-img img {
+            transform: scale(1.1);
+        }
+        
+        .vision-card-content {
+            padding: 1.5rem;
+        }
+        
+        .vision-card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--secondary);
+                padding: 1rem;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .chapter-container {
+                padding: 2rem 1rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Reading Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: transparent;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            z-index: 999;
+        }
+        
+        .progress-bar {
+            height: 5px;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSJ3aGl0ZSIgZD0iTTI1NiA4QzExOSA4IDggMTE5IDggMjU2czExMSAyNDggMjQ4IDI0OCAyNDgtMTExIDI0OC0yNDhTMzkzIDggMjU2IDh6bTAgNDQ4Yy0xMTAuNSAwLTIwMC04OS41LTIwMC0yMDBTMTQ1LjUgNTYgMjU2IDU2czIwMCA4OS41IDIwMCAyMDAtODkuNSAyMDAtMjAwIDIwMHptMzYuMi0xNDMuN2MtMjAuNi0xNy4xLTUxLjctMTcuNS03Mi43LTEuNy0yMS4xIDE1LjgtMjMuNCA0Ni42LTYuMSA2Ni44czUxLjcgMTcuNSA3Mi43IDEuN2MxOS4zLTE0LjcgMjMuNC00Ni42IDYuMS02Ni44eiIvPjwvc3ZnPg==" alt="Osazuwa Logo">
+                <span>Osazuwa</span>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#story">The Story</a></li>
+                    <li><a href="#vision">Vision</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1 class="delay-1">Reclaiming Edo's Legacy</h1>
+            <p class="delay-2">Through the power of storytelling, we're bringing Benin's rich history and culture to the world with Osazuwa - a fictioinal anime that connects our past to inspire our future.</p>
+            <div class="delay-3">
+                <a href="#story" class="btn">Read Chapter 1</a>
+                <a href="#vision" class="btn btn-outline">Our Vision</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-title fade-in">
+            <h2>The Edo Renaissance</h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text fade-in delay-1">
+                <h3>From Great Walls to Great Stories</h3>
+                <p>Over 500 years ago, the Kingdom of Benin stood as one of the greatest civilizations the world had ever seen. Our ancestors built a kingdom so advanced that European explorers wrote in awe about our governance, our art, and the great walls of Benin—walls that were once described as the largest earthworks in human history.</p>
+                <p>Today, that pride has been replaced with a painful reality. Edo, once the jewel of African civilization, is now being associated with negative narratives. These are not what Edo is about. Our name, once synonymous with sophistication and brilliance, deserves to shine again.</p>
+                <p>Through Osazuwa, we aim to tell fictional stories rooted in Edo's history, culture, and traditions. To reintroduce the world to the real Edo State—its beauty, its richness, and its unmatched legacy.</p>
+            </div>
+            <div class="about-image fade-in delay-2">
+                <img src="Edo.jpg" alt="Benin Art">
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section" id="story">
+        <div class="story-container">
+            <div class="story-title fade-in">
+                <h2>Osazuwa</h2>
+                <p>A tale of prophecy, power, and the unbreakable spirit of Benin</p>
+            </div>
+            <div class="chapter-container fade-in delay-1">
+                <div class="chapter-header">
+                    <h3>Chapter 1: Bloodline</h3>
+                    <p>The birth that would change everything</p>
+                </div>
+                <div class="chapter-content">
+                    <p>The night was restless, the heavens heavy with clouds that threatened rain. In the palace of the Benin Kingdom, Oba Ozolua paced across the stone floor, the hem of his white wrapper whispering against the cold surface with every hurried step. His brow was furrowed, his jaw tight. He ran a hand through his hair, a nervous tic he'd developed over the years of waiting. His heart pounded a frantic rhythm against his ribs, a relentless drumbeat that echoed his deep unease.</p>
+                    <p>A son will be born to you. He will bring great change to the whole of Benin.</p>
+                    <p>The prophecy had come from the juju priest of Ida, a neighboring kingdom. That priest had spoken of another revelation, one the Ohen of Benin was meant to deliver. "Ask the Ohen when you get back to Benin," the Ida priest had said. Yet when Oba Ozolua returned to his kingdom, the Ohen dismissed the words outright, his lips curling in disdain.</p>
+                    <p>"No such prophecy has reached me," the Ohen had declared, his voice sharp with scorn. "The gods of Ida meddle in what they do not understand."</p>
+                    <p>Still, Oba Ozolua could not let it go. For years, his longing for an heir had led him down paths he would rather forget, through rituals and sacrifices that bore no fruit. Fourteen daughters, yet no son to continue his lineage. His faith, his pride, his patience—everything hung by a fragile thread.</p>
+                    <p>Tonight, however, felt different. Perhaps this was the prophecy coming to pass. Queen Idia, his fourth wife and beloved Iyoba, was in labor. Hours stretched endlessly, each one a battlefield of hope and dread.</p>
+                    <p>The tradition was unyielding. An Oba could not witness the birth of his first son until sacred rites were performed. It was a rule he had abided by fourteen times before, each time emerging to find only daughters. But this time... this time, there was hope.</p>
+                    <p>The silence of the night was shattered by hurried footsteps. The Ohen appeared, his expression grim. His staff clicked against the ground with each deliberate step, the faint sound amplifying the tension in the air.</p>
+                    <p>"My King," the Ohen said, his voice low and foreboding.</p>
+                    <p>Oba Ozolua turned sharply, his white wrapper swirling around him. "Great one!" His voice cracked as he stepped forward. "Tell me of my wife. Of my child. What news do you bring?"</p>
+                    <p>The Ohen's hesitation was like a blade hanging over the king's soul. His lips parted, but the words seemed to struggle their way out. Finally, he spoke.</p>
+                    <p>"My king... it is a boy."</p>
+                    <p>For a moment, the world stopped. Oba Ozolua staggered backward, his heart leaping with joy. "A son?" he whispered, as if saying it aloud might break the spell. His voice rose, trembling. "Osalobua! The gods have answered me! A son... a son at last!"</p>
+                    <p>But the Ohen's expression did not soften. His silence was a heavy weight.</p>
+                    <p>The king's joy faltered. "What is it, great one? Speak!"</p>
+                    <p>The priest lowered his gaze. "The child is an Ehi."</p>
+                    <p>The word sent shockwaves through the Oba. He staggered back as if struck. An Ehi. A spirit child. A child with supernatural powers, born as an affront to the gods. In Benin, only the Ohen could wield juju, and any other who bore such power was considered a curse upon the land. The tradition was clear—an Ehi child must be sacrificed to appease the gods and purify the kingdom.</p>
+                    <p>The king fell to his knees. "Why me?" he whispered, his voice breaking. "No, this cannot be! I have performed the rites to Olokun! I have given sacrifices to the gods—why do they curse me so?" His fists pounded the ground, his anguish shaking the very air around him.</p>
+                    <p>The Ohen stepped closer, his voice cold and steady. "This is no ordinary spirit child, my king. He was born with full hair on his head. Red dreadlocks."</p>
+                    <p>The words hung in the air, heavy with meaning.</p>
+                    <p>"Red locs?" the Oba echoed, his voice barely audible.</p>
+                    <p>"Thick, fiery red locs, long as cobras, covering his head like a crown. I have never seen such a thing. The child must quickly be returned to the gods, or the land will be cursed."</p>
+                    <p>Outside the palace, the news spread like wildfire. The villagers whispered in awe and fear. A spirit child? Such a thing had never been seen since the time of Izoduwa. In the marketplace, the women huddled together, speaking in hushed tones.</p>
+                    <p>"Do you think they'd spare the child?" one woman whispered, her eyes wide with fear.</p>
+                    <p>"Spare him?" another replied, shaking her head. "The Oba himself must end its life. It is the only way to save us from this curse."</p>
+                    <p>The other wives of the Oba, hearing of the child's fate, exchanged knowing glances, thinly veiled smiles playing on their lips. "So she thinks she would give birth to a male child and become the Amebo of the king," one wife sneered, her voice dripping with venom.</p>
+                    <p>In Benin, the Amebo of the king was his favorite wife, the one who brought him water to wash his hands - Ame for water and obo for hands. It was a position of intimacy and power, as she alone was privy to the king's secrets.</p>
+                    <p>"As if she could ever replace the position I hold in the Oba's heart." Another nodded in agreement, smoothing down the intricate folds of her own wrapper. "She thought her son would elevate her, but he has only brought her shame."</p>
+                    <p>Back in the labor hut, Queen Idia cradled her newborn son, her tears falling onto his tiny face. The child's red locs shimmered like embers in the dim light, framing a face that looked startlingly like his father's. She could see none of the supposed evil the Ohen had spoken of. To her, this child was a blessing, not a curse.</p>
+                    <p>The midwives stood by the doorway, their expressions tense. None dared defy the Ohen's decree, yet they pitied the queen. She had suffered so much—years of barrenness, whispered ridicule from the other wives. Now, just as she finally bore a son, the gods had marked him for death.</p>
+                    <p>"Please," Idia begged, clutching her son tightly. "Let me hold him a little longer before they take him."</p>
+                    <p>The midwives hesitated, then nodded. But the moment was short-lived. The Ohen entered the hut, his staff thudding against the ground.</p>
+                    <p>"Queen Idia," he intoned. "The time has come. Give me the child."</p>
+                    <p>"No!" she cried, her voice breaking. "You cannot take him!"</p>
+                    <p>She held the baby closer, her sobs wracking her body. But the priest was relentless. He wrenched the child from her weak arms, ignoring her screams.</p>
+                    <p>Outside, a crowd had gathered. The Ohen stepped into the torchlight, raising the child high for all to see. Gasps rippled through the crowd at the sight of the baby's red locs, gleaming like molten fire.</p>
+                    <p>"This is the spirit child!" the Ohen declared, his voice booming over the murmurs. "Born with powers that defy the gods! Tonight, we shall offer him as a sacrifice to cleanse our land!"</p>
+                    <p>The villagers erupted in chants. "Oba ghato okpere!" (May the king live forever!)</p>
+                    <p>"Ise!" (Amen/So be it!)</p>
+                    <p>The procession marched toward Uselu. The moon hung low in the sky, its light casting eerie shadows on the path. At the front was Oba Ozolua, his face a mask of anguish. The seven Uzama followed, their ceremonial robes gleaming in the torchlight.</p>
+                    <p>At the altar, the child was placed before the Oba. The crowd fell silent. One of the Uzama stepped forward, his voice ringing out. "Oba ghato okpere!"</p>
+                    <p>"Ise!"</p>
+                    <p>The Oba's hand trembled as he took the sacrificial blade. The child's red locs gleamed like fire in the torchlight, his eyes unblinking as they gazed at his father. Oba Ozolua hesitated, his vision blurring as he looked at his son's small, perfect face. A bead of sweat trickled down Ozolua's temple. No, it's just a baby. He told himself, but the calm gaze held him captive. Then, a flicker. A faint, almost imperceptible shift in the mass of red hair. For a heartbeat, they seemed to writhe, tiny serpents coiling and uncoiling. A chill ran down his spine. The air grew heavy, the torches seeming to dim for a moment. He blinked, and they were still again, just baby hair. I'm imagining things. I have to. He looked to the crowd. "Oba ghato okpere!" They chanted.</p>
+                    <p>"Ise!" jolting him from his daze. A storm raged within him—duty against love, tradition against the unthinkable.</p>
+                    <p>His grip tightened on the knife.</p>
+                    <p>And then—</p>
+                    <p>Slash.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="section vision-section" id="vision">
+        <div class="section-title fade-in">
+            <h2>Our Vision</h2>
+        </div>
+        <div class="vision-grid">
+            <div class="vision-card fade-in delay-1">
+                <div class="vision-card-img">
+                    <img src="office.jpeg" alt="Creative Hub">
+                </div>
+                <div class="vision-card-content">
+                    <h3>Office Space</h3>
+                    <p>A physical space where artists, writers, animators, and creators can collaborate to tell Edo's stories through various media - anime, comics, games, and more.</p>
+                </div>
+            </div>
+            <div class="vision-card fade-in delay-2">
+                <div class="vision-card-img">
+                    <img src="art.jpg" alt="Merchandise">
+                </div>
+                <div class="vision-card-content">
+                    <h3>Cultural Merchandise</h3>
+                    <p>From clothing to collectibles, we'll create products that celebrate Edo's heritage while providing sustainable income for local artisans and creators.</p>
+                </div>
+            </div>
+            <div class="vision-card fade-in delay-3">
+                <div class="vision-card-img">
+                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Education">
+                </div>
+                <div class="vision-card-content">
+                    <h3>Education & Training</h3>
+                    <p>Workshops and programs to teach animation, storytelling, and digital skills to Edo youth, creating career paths in the creative economy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Osazuwa</h3>
+                <p>A project of the Edo Renaissance Initiative, dedicated to preserving and promoting Edo culture through creative storytelling.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="YouTube">▶️</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="#about">About The Project</a></li>
+                    <li><a href="#story">Read The Story</a></li>
+                    <li><a href="#vision">Our Vision</a></li>
+                    <li><a href="#">Get Involved</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="ihubbuz@gmail.com.com">ihubbuz@gmail.com</a></li>
+                    <li><a href="tel:+2349063235950">+234 906 323 5950</a></li>
+                    <li>Benin City, Edo State</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2019 Osazuwa Project. All rights reserved. Edo ghato okpere!</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                nav.classList.remove('active');
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+        
+        // Reading Progress Bar
+        const progressBar = document.getElementById('progressBar');
+        
+        window.addEventListener('scroll', () => {
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (window.pageYOffset / totalHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+        
+        // Fade-in Animation on Scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+    </script>
+</body>
+</html>
